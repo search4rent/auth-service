@@ -1,0 +1,19 @@
+{
+  "settings": {},
+  "mappings": {
+    "token": {
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "ttl": {
+        	"type": "string",
+        	"enabled": false
+        },
+        "provider": {
+        	"type": "string"
+        }
+      }
+    }
+  }
+}
