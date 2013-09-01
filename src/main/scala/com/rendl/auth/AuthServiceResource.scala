@@ -16,25 +16,23 @@ import com.codahale.jerkson.Json
 @Consumes(Array("application/json"))
 class AuthServiceResource {
 
-  @POST
-  @Path("")
-  def create(user: Auth, @Context context: HttpServletRequest): Response = {
-    Response.status(Status.OK).entity(Map("message" -> "service stub working, now implement me faster!")).build
-  }
+  //@POST
+  //@Path("")
+  //def create(user: Auth, @Context context: HttpServletRequest): Response = {
+  //  Response.status(Status.OK).entity(Map("message" -> "service stub working, now implement me faster!")).build
+  //}
+
+  val delegate: Auth = new Auth
 
   @POST
   @Path("oauth")
   def login(credentials: Credentials): Response = {
-    println("userdata called")
-    val client: FacebookClient = new DefaultFacebookClient(credentials.token)
-    println("got client")
-    val fbUser: FbUser = client.fetchObject("me", classOf[FbUser])
-    println("user:\n " + Json.generate(fbUser))
-
-    Response.status(Status.OK).entity(Map("name" -> fbUser.getName)).build
+    delegate.auth(credentials) match {
+      case Some(str: String) => Response.status(Status.OK).entity(Map("email" -> str)).build
+      case None => Response.status(Status.UNAUTHORIZED).entity(Map("messge" -> "could not log in")).build
+    }
   }
 
 }
 
 case class Credentials(token: String, provider: String)
-case class Auth(userId: String, password: String, salt: String, provider: String)

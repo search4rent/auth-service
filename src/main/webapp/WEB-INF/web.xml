@@ -4,11 +4,11 @@
          version="2.5">
 
     <listener>
-        <listener-class>com.rendl.auth.AuthServiceResource</listener-class>
+        <listener-class>com.rendl.auth.elasticsearch.ElasticSearchConnectionListener</listener-class>
     </listener>
 
     <servlet>
-        <servlet-name>user-service</servlet-name>
+        <servlet-name>auth-service</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
@@ -17,9 +17,10 @@
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>
-                com.rendl.auth.service;com.codahale.jersey.providers;com.codahale.jersey.inject
+                com.rendl.auth;com.codahale.jersey.providers;com.codahale.jersey.inject
             </param-value>
         </init-param>
+
         <load-on-startup>20</load-on-startup>
     </servlet>
 
