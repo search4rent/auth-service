@@ -3,7 +3,7 @@ Auth service
 
 ## Endpoints
 
-### login to rendl system with external oauth provder token
+### login to rendl system with external oauth provider token
 
 - Endpoint url: /auth-service/oauth
 - Method: POST
@@ -34,7 +34,7 @@ Auth service
 {
     "name": "Ali Adelfarugh",
     "birthday": 12313541, // timestamp
-    "sex": "MALE", // MALE | FEMALE
+    "sex": "MALE" // MALE | FEMALE
 }
 ```
 
