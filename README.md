@@ -42,10 +42,8 @@ Auth service
 > the token you provided does not grant access to the needed data on the provider (not logged in anymore, outdated)
 ```json
 {
-    "token": "thatsTheProvdedToken"
+    "token": "thatsTheProvidedToken"
 }
 ```
 
-
-otherwise 401
 
