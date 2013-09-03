@@ -7,6 +7,8 @@ import org.elasticsearch.search.SearchHits
 import com.restfb.{DefaultFacebookClient, FacebookClient}
 import com.restfb.types.User
 import com.codahale.jerkson.Json
+import sun.reflect.generics.reflectiveObjects.NotImplementedException
+import com.restfb.exception.FacebookException
 
 /**
  * The delegate performing some cool stuff
@@ -16,10 +18,10 @@ class Auth{
    *
    * @param credentials
    */
-  def auth(credentials: Credentials): Option[String] = {
+  def auth(credentials: Credentials): Response = {
     // check if token already existing and still valid
     if (isLocal(credentials))    // todo: extend TTL here
-      None
+      throw new NotImplementedException()
     else  // check if provider validates
       login(credentials)
   }
@@ -56,22 +58,26 @@ class Auth{
       false
   }
 
-  private def login(credentials: Credentials): Option[String] = {
-    val email: Option[String] = credentials.provider match {
-      case "fb" => Some(loginFb(credentials.token))
-      case _ => None
+  private def login(credentials: Credentials): Response = {
+    credentials.provider match {
+      case "fb" => loginFb(credentials.token)
+      case _ => throw new RuntimeException("no provider for key '" + credentials.provider + "' found!")
     }
-
-    email
   }
 
-  private def loginFb(token: String): String = {
-    println("userdata called")
-    val client: FacebookClient = new DefaultFacebookClient(token)
-    println("got client")
-    val fbUser: User = client.fetchObject("me", classOf[User])
-    println("user:\n " + Json.generate(fbUser))
-    fbUser.getEmail
+  private def loginFb(token: String): Response = {
+    try {
+      val client: FacebookClient = new DefaultFacebookClient(token)
+      val fbUser: User = client.fetchObject("me", classOf[User])
+
+      Option(fbUser.getEmail) match {
+        case Some(email: String) => ResponseOk(email)
+        case _ => ResponseUnauthorized(fbUser.getName, fbUser.getBirthdayAsDate, fbUser.getGender)
+      }
+    } catch {
+      case e: FacebookException => ResponsePreconditionFailed(token)
+      case e => throw e
+    }
   }
 
   private def insert(credentials: Credentials) {}
