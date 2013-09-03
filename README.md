@@ -9,7 +9,7 @@ Auth service
 - Method: POST
 
 #### Request
-```
+```json
 {
     "token": "someToken23132132",
     "provider": "fb" // fb | gp | tw | rendl
