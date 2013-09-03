@@ -5,7 +5,7 @@ Auth service
 
 ### login to rendl system with external oauth provider token
 
-- Endpoint url: /auth-service/oauth
+- Endpoint url: /authservice/oauth
 - Method: POST
 
 #### Request
@@ -45,5 +45,14 @@ Auth service
     "token": "thatsTheProvidedToken"
 }
 ```
+
+
+##Testing
+
+You can receive a token with your fb user by authorising the app here:
+
+http://www.line030.de/rendl/login.html
+
+go to firebug/console and type `FB.getAccessToken()`
 
 
