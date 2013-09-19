@@ -4,7 +4,7 @@
          version="2.5">
 
     <listener>
-        <listener-class>com.rendl.auth.elasticsearch.ElasticSearchConnectionListener</listener-class>
+        <listener-class>com.randl.core.servicelib.elasticsearch.ElasticSearchConnectionListener</listener-class>
     </listener>
 
     <servlet>

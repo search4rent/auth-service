@@ -1,0 +1,32 @@
+{
+  "settings": {},
+  "mappings": {
+    "token": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "firstName": {
+            "type": "string",
+        	"enabled": false
+        },
+        "lastName": {
+        	"type": "string",
+        	"enabled": false
+        },
+        "email": {
+        	"type": "string"
+        },
+        "providers": {
+            "type": "object",
+        	"facebook": {
+        		"type": "string"
+        	},
+        	"google": {
+        		"type": "string"
+        	}
+        }
+      }
+    }
+  }
+}
